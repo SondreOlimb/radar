@@ -31,7 +31,7 @@ try:
     
         data = client_socket.recv(2**20) #786432+16
         try:
-            RADC.RADC(data_bytes=data)
+            RADC.RADC(data=data)
             
         
             
@@ -43,10 +43,32 @@ try:
         time.sleep(2)
     
     
-    
+    # length = int.from_bytes(data[4:8],byteorder="little")
+    # print("data length",len(data))
+  
+    # print("TYPE: ",int.from_bytes(data[4:8],byteorder="little"))
+    # raw_payload =data[8:8+length]
+    # print(8)
+    # print("TYPE: ",int.from_bytes(data[13:13+4],byteorder="little"))
+    # #print("TYPE: ",data[8:12].decode())
+
+        
+
+    # except:
+    #     print("TYPE: NO type" )
+    # cl
     
 
+    #print("RECEIVED: %s" % data, "\n")
+
+    #b = bytearray(data,encoding="utf-8")
+    #print(data.decode("utf-8"))
     
+
+    #data = input("SEND( TYPE q or Q to Quit):")
+    #client_socket.send(data)
+    #if data.lower() == 'q':
+    #
 except KeyboardInterrupt:
     print("Keyboard abort")
     client_socket.close()
