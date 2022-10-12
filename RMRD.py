@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
-def RADC(data_bytes):
+def RMRD(data_bytes):
     """
     RAW ADC Data(RADC) is a data
     This in an byte array of legth 786432, containing raw data from the 3 ADC in the radar, one for each antenna.
@@ -31,16 +31,18 @@ def RADC(data_bytes):
 
     
     print("Data length: ", len(data_bytes))
-    data = np.frombuffer(data_bytes,dtype=np.uint16)
+    data = np.frombuffer(data_bytes,dtype=np.uint32)
+    
+    
     print("Data length: ", len(data))
-    fig, axs = plt.subplots(3, 1)
-    axs[0].plot(data[:256])
-    axs[0].plot(data[256:256+256])
-    axs[1].plot(data[256*3:256*3+256])
-    axs[1].plot(data[256*4:256*4+256])
-    axs[2].plot(data[256*6:256*6+256])
-    axs[2].plot(data[256*7:256*7+256])
+    
+    data = data.reshape(256,256)
+    np.savetxt("data.txt", data, delimiter=",")
+    
+    
+    plt.imshow(data, cmap='plasma', interpolation='nearest')
     plt.show()
-    plt.savefig(f"figures/plot{datetime.now()}.svg")
+    
+    plt.savefig(f"figures/RMRD_plot{datetime.now()}.svg")
 
     
